@@ -3,7 +3,7 @@ class EmptyTreasureMapError(Exception):
 
 def decipher_treasure_numbers(numbers):
     try:
-        if not numbers:  # Check if the list is empty
+        if not numbers:  # Check when the list is empty
             raise EmptyTreasureMapError("ERROR: The treasure map is empty! No numbers to decipher.")
 
         total_sum = 0
@@ -21,7 +21,7 @@ def decipher_treasure_numbers(numbers):
         print(e)
         return None
 
-# The Lost Treasur Of Eldora
+# The Lost Treasure Of Eldora
 treasure_numbers = [10, "20", None, "abc", 50, None, "30.5"]
 empty_map = []
 
