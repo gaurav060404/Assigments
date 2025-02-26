@@ -7,8 +7,8 @@ CORS(app)
 def evaluate_prefix(expression):
     stack = []
     operators = {'+', '-', '*', '/'}
-    reversed_expression = reversed(expression)
-    reversed_list = reversed_expression.split()
+    tokens = expression.split()
+    reversed_list = reversed(tokens)
     for token in reversed_list:
         if token not in operators:
             stack.append(int(token))
