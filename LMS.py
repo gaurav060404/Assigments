@@ -1,5 +1,10 @@
 import sqlite3
 
+# usecases
+# model 
+# design
+
+
 class Database:
     def __init__(self):
         self.conn = sqlite3.connect("library.db")
