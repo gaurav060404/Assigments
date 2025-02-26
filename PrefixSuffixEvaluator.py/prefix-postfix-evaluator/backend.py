@@ -9,6 +9,7 @@ def evaluate_prefix(expression):
     operators = {'+', '-', '*', '/'}
     tokens = expression.split()
     reversed_list = reversed(tokens)
+    steps = []
     for token in reversed_list:
         if token not in operators:
             stack.append(int(token))
@@ -17,11 +18,13 @@ def evaluate_prefix(expression):
             op2 = stack.pop()
             result = eval(f"{op1} {token} {op2}")
             stack.append(result)
-    return stack.pop()
+        steps.append(f"Stack: {stack}")
+    return stack.pop(), steps
 
 def evaluate_postfix(expression):
     stack = []
     operators = {'+', '-', '*', '/'}
+    steps = []
     for token in expression.split():
         if token not in operators:
             stack.append(int(token))
@@ -30,7 +33,8 @@ def evaluate_postfix(expression):
             op1 = stack.pop()
             result = eval(f"{op1} {token} {op2}")
             stack.append(result)
-    return stack.pop()
+        steps.append(f"Stack: {stack}")
+    return stack.pop(), steps
 
 @app.route('/evaluate', methods=['POST'])
 def evaluate_expression():
@@ -42,8 +46,8 @@ def evaluate_expression():
         return jsonify({"error": "Invalid input"}), 400
 
     try:
-        result = evaluate_prefix(expression) if notation == "prefix" else evaluate_postfix(expression)
-        return jsonify({"result": result})
+        result, steps = evaluate_prefix(expression) if notation == "prefix" else evaluate_postfix(expression)
+        return jsonify({"result": result, "steps": steps})
     except Exception as e:
         return jsonify({"error": str(e)}), 400
 
